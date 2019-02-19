@@ -151,15 +151,25 @@ opts_chunk$set(echo = TRUE, cache= TRUE, results = 'hold')</code></pre>
 </div>
 <div id="load-libraries-and-set-seed" class="section level3">
 <h3>Load libraries and Set Seed</h3>
-<p>Load all libraries used, and setting seed for reproducibility. <em>Results Hidden, Warnings FALSE and Messages FALSE</em></p>
+<p>Load all libraries used, and setting seed for reproducibility.</p>
 <pre class="r"><code>library(caret)
 library(randomForest)
 set.seed(2019)</code></pre>
 </div>
 <div id="load-and-prepare-the-data-and-clean-up-the-data" class="section level3">
 <h3>Load and prepare the data and clean up the data</h3>
-<pre><code>## [1] 19622   159
-## [1]  20 159</code></pre>
+<pre class="r"><code>trainingURL &lt;- &quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv&quot;
+testingURL &lt;- &quot;https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv&quot;
+trainingFile &lt;- &quot;pml-training.csv&quot;
+testingFile &lt;- &quot;pml-testing.csv&quot;
+download.file(url=trainingURL, destfile=trainingFile,method=&quot;curl&quot;)
+download.file(url=testingURL, destfile=testingFile,method=&quot;curl&quot;)
+training &lt;- read.csv(&quot;pml-training.csv&quot;,row.names=1,na.strings=c(&quot;NA&quot;,&quot;&quot;))
+testing &lt;- read.csv(&quot;pml-testing.csv&quot;,row.names=1,na.strings=c(&quot;NA&quot;,&quot;&quot;))
+dim(training)</code></pre>
+<p>[1] 19622 159</p>
+<pre class="r"><code>dim(testing)</code></pre>
+<p>[1] 20 159</p>
 </div>
 <div id="data-sets-partitions-definitions" class="section level3">
 <h3>Data Sets Partitions Definitions</h3>
@@ -168,11 +178,11 @@ set.seed(2019)</code></pre>
 trainingClean &lt;- training[inTrain,]
 validationClean &lt;- training[-inTrain,]
 # number of rows and columns of data in the training set
-dim(trainingClean)
-# number of rows and columns of data in the validating set
+dim(trainingClean)</code></pre>
+<p>[1] 11776 159</p>
+<pre class="r"><code># number of rows and columns of data in the validating set
 dim(validationClean)</code></pre>
-<pre><code>## [1] 11776   159
-## [1] 7846  159</code></pre>
+<p>[1] 7846 159</p>
 </div>
 </div>
 <div id="data-exploration-and-cleaning" class="section level2">
@@ -335,7 +345,7 @@ predictions</code></pre>
 ##  B  A  B  A  A  E  D  B  A  A  B  C  B  A  E  E  A  B  B  B 
 ## Levels: A B C D E</code></pre>
 <pre class="r"><code>endTime &lt;- Sys.time()</code></pre>
-<p>The analysis was completed on Mon Feb 18 21:02:45 2019 in 0 seconds.</p>
+<p>The analysis was completed on Mon Feb 18 21:28:26 2019 in 0 seconds.</p>
 </div>
 </div>
 </div>
